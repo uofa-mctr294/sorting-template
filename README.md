@@ -1,113 +1,44 @@
-# hello-world
+# sorting
+
+## Introduction
+
+Almost all programming tasks can be described as 'reading', 'manipulating' and 'writing' data. One of the most basic manipulations of data is sorting. If you know your data is sorted then many manner of data operations become trivial. If you want the smallest or largest element in a set you can either get the first or last element. If you want to find a value in a large array, you can do a [binary search](https://en.wikipedia.org/wiki/Binary_search). For these reasons, sorting data is often the first step in many algorithms, and there are various algorithms with different performance characteristics.
+
+As sorting is a common programming problem, solutions can easily be found online and AI assistants can easily provide implementations, but it is highly suggested that you give a good faith attempt to implement a solution yourself. You will very likely come across problems in the future where there are no reference implementations, especially when working with embedded systems and other mechatronic-adjacent fields, so it is worth practicing this process. But feel free to compare your final implementation with these resources.
 
 ## Requirements
 
-- Git
-- C++ Compiler (gcc, clang, msvc)
-- CMake
+Implement some sorting algorithms.
 
-## Installation
+- Bubble Sort
+- Selection or Insertion Sort
+- Quick Sort
+- 1 of the following
+  - Merge Sort
+  - Bucket Sort
+  - Counting Sort
+  - Radix Sort
 
-Setting up a C++ development environment can be non-trivial. The course is set up so that most relatively standard development environments will work fine, whether you are using Windows or Linux. Nor do we prescribe that you use a specific editor or that you use an editor at all! However for simplicity here we give instructions on how to use VS Code as your editor and setup a C++ development in Linux or Windows. Microsoft provides a thorough [set of instructions](https://code.visualstudio.com/docs/languages/cpp), but here we will go through some basics and the most pertinent set of instructions.
+In addition, benchmark the performance of your algorithms. Add a comparison with a sorting algorithm from the STL.
 
-### Terminal Basics
+## Testing Requirements
 
-Many of the following instructions will require use of a terminal. While it is possible to perform these operations purely within a Graphical User Interface (GUI), you will find that you will often run into programs and tools that have no UI, and must be run via a command line interface (CLI), or even if there is a UI, it would be faster to type the necessary commands. The following instructions will be for Windows, as the specific instructions can vary greatly depending on your Linux Distro.
+- For the sake of testing we require that all your source files are placed in `src`.
+- We also require that nothing in `tests/test_sort.cpp` and `src/sort.hpp` is removed. You may feel free to add to this file or add additional files to this directory, as long as testing continues to build and run. We expect that an entry point to your benchmark tool will exist inside `src`. Any additional changes may require you to changes to `CMakeLists.txt`
 
-If you are unused to using the terminal here is a brief [introduction](https://www.freecodecamp.org/news/command-line-for-beginners/).
+### Hints
 
-### Setup
-
-#### Windows
-
-On Windows for this first part you can use either Command Prompt or Powershell as your terminal, which can both be accessed via `Windows Terminal`. Both are acceptable but I would suggest using Powershell.
-
-We will use the utility `winget` to install the required programs.
-
-```shell
-winget --version
-```
-
-First, we will install [Git](https://git-scm.com/), a version control system.
-
-```shell
-winget install Git.Git
-```
-
-Next, we will install a C++ development environment. On Windows, developers have the option to either use [MSYS2](https://www.msys2.org/), which creates a Unix-like development environment, [Windows-Subsystem-for-Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install), which creates an actual Linux system that runs on top of Windows, or [Microsoft's C++ Build Tools](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2022). If you wish to develop as if you are on Linux, WSL is an option, but we will continue with the Build Tools. While all three can be used with VS Code, the build tools can also be used with Microsoft's [Visual Studio](https://visualstudio.microsoft.com/downloads), which provides a fully integrated development environment. While we're at it, we will also install [VS Code](https://visualstudio.microsoft.com/downloads)
-
-```shell
-winget install Microsoft.VisualStudio.2022.BuildTools
-winget install Microsoft.VisualStudioCode
-```
-
-With the installation of the build tools, you now have two new terminals installed. These are the `Developer Powershell for VS 2022` and `Developer Command Prompt for VS 2022`. The C++ development tools are only available while using one of these new terminals. Open one of the terminals and check that your tools are properly installed
-
-```shell
-cl
-```
-
-```shell
-code -v
-```
-
-With everything setup we will make a folder to place some new projects, you could do this in Windows Explorer, but let's continue using the terminal. We will also get the this repository
-
-```shell
-cd ~
-mkdir Repos/School/mctr294
-cd Repos/School/mctr294
-git clone https://github.com/mctr294-2026/lab-1-UserName helloWorld
-code helloWorld
-```
-
-#### Linux
-
-On Linux, use your distribution's package manager to install the required tools. The examples below use `apt` (for Debian/Ubuntu-based systems), but you can substitute with `dnf` (Fedora), `pacman` (Arch), or your system's equivalent.
-
-First, update your package list:
-
-```shell
-sudo apt update
-```
-
-Install Git, g++ compiler, CMake, and VS Code:
-
-```shell
-sudo apt install git g++ cmake
-```
-
-For VS Code, you can either download it from the [official website](https://code.visualstudio.com/) or install it via snap:
-
-```shell
-sudo snap install --classic code
-```
-
-Verify the installations:
-
-```shell
-git --version
-g++ --version
-cmake --version
-code --version
-```
-
-With everything setup, create a folder for your projects and clone this repository:
-
-```shell
-cd ~
-mkdir -p Repos/School/mctr294
-cd Repos/School/mctr294
-git clone https://github.com/mctr294-2026/lab-1-UserName helloWorld
-code helloWorld
-```
+- Descriptions of the above sorting algorithms can be found [here](https://en.wikipedia.org/wiki/Sorting_algorithm#Comparison_of_algorithms)
+- The C++ standard template library (STL) provides sorting functions in their `<algorithm>` header. You can't use these directly in your implementation but they can be useful for reference. They can also serve as a reference implementation if you wish to evaluate the quality of your implementation.
+- When benchmarking, the STL's `<chrono>` provides various utilities for timekeeping. Notably `std::chrono::high_resolution_clock` allows for the measurement of time intervals on the scale of nanoseconds
+- When benchmarking, time measurements can have significant variance, easily on the scale of the measurements themselves. Additionally measurement tools can themselves affect what they are measuring. You will have to take measures to mitigate these issues.
 
 ## Building
 
 ```shell
 cmake -S . -B build
 cmake --build build --config Debug
-build\Debug\hello_world.exe
+build\Debug\sorting.exe
 ```
 
 ## Testing
